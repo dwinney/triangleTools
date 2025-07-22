@@ -39,3 +39,20 @@
 
 # debug information files
 *.dwo
+
+# Runtime directories
+build/
+test/
+.vscode/
+bin/
+lib/
+scripts/tests/
+dev/
+
+# Outputs 
+*.pdf
+*.eps
+*.ps
+*.root
+*.dat
+*.txt
