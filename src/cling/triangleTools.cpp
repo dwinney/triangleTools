@@ -32,12 +32,12 @@ int main(int argc, char **argv)
     argv = new_argv.data();
     argc += 2;    
 
-    TRint * app = new TRint( "triangleDeck", &argc, argv);
-    TString env = gSystem->Getenv("TRIANGLEDECK");
+    TRint * app = new TRint( "triangleTools", &argc, argv);
+    TString env = gSystem->Getenv("TRIANGLETOOLS");
     
-    if (env.Length() == 0) std::cout << "Environment variable TRIANGLEDECK not set!" << std::endl;
+    if (env.Length() == 0) std::cout << "Environment variable TRIANGLETOOLS not set!" << std::endl;
     
-    app->ProcessLine(".x $TRIANGLEDECK/src/cling/Load.C");
+    app->ProcessLine(".x $TRIANGLETOOLS/src/cling/Load.C");
     app->ProcessLine(Form(".x %s", macroName.Data()));
     app->Terminate(0);
 

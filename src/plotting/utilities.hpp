@@ -22,7 +22,7 @@
 
 #include "constants.hpp"
 
-namespace triangleDeck
+namespace triangleTools
 {
     // ---------------------------------------------------------------------------
     // Angles

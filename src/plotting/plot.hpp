@@ -32,7 +32,7 @@
 #include "data_set.hpp"
 #include "colors.hpp"
 
-namespace triangleDeck
+namespace triangleTools
 {
     class plotter;
     

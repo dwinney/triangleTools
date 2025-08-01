@@ -46,7 +46,6 @@ test/
 .vscode/
 bin/
 lib/
-scripts/tests/
 dev/
 
 # Outputs 
@@ -56,3 +55,7 @@ dev/
 *.root
 *.dat
 *.txt
+
+# Testing scripts
+scripts/tests/
+test_*

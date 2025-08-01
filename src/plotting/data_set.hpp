@@ -16,10 +16,10 @@
 #include <sstream>
 #include <map>
 
-namespace triangleDeck
+namespace triangleTools
 {
     // Forward declare the option type
-    enum class option : unsigned int;
+    enum class data_option : unsigned int;
 
     struct data_set
     {
@@ -38,7 +38,7 @@ namespace triangleDeck
         // Store a map in which to store any additional information related to the data_set
         std::map<std::string, double> _extras;
 
-        option _option;
+        data_option _option;
 
         // If we want a data entry in the legend
         bool _add_to_legend = true;

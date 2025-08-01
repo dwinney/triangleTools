@@ -14,7 +14,7 @@
 #include <complex>
 #include <limits>
 
-namespace triangleDeck
+namespace triangleTools
 {
     using complex = std::complex<double>;
 

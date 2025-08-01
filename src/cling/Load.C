@@ -12,10 +12,10 @@ void Load()
     //----------------------------------------------------------------------
     // Core library
 
-    TString main_dir  = gSystem->Getenv("TRIANGLEDECK");
+    TString main_dir  = gSystem->Getenv("TRIANGLETOOLS");
 
     // Load the main library files
-    TString lib  = main_dir + "/lib/libTRIANGLEDECK." + lib_ext;
+    TString lib  = main_dir + "/lib/libTRIANGLETOOLS." + lib_ext;
 
     // Headers
     TString core    = main_dir + "/src"; 
@@ -30,6 +30,6 @@ void Load()
     }
     else
     {
-        Warning("Load()", "triangleDeck library not found! Looked in: %s", lib.Data());
+        Warning("Load()", "triangleTools library not found! Looked in: %s", lib.Data());
     }
 }
