@@ -17,9 +17,9 @@ namespace triangleTools
         convergent, log_divergent
     };
 
-    struct triangle_args
+    struct args
     {
-        triangle_args(id xid) : _id(xid)
+        args(id xid) : _id(xid)
         {};
 
         // Which topology we will evaluate

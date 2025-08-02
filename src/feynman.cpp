@@ -5,13 +5,13 @@
 // Email:        daniel.winney@gmail.com
 // ---------------------------------------------------------------------------
 
-#include "feynman_triangle.hpp"
+#include "feynman.hpp"
 
 namespace triangleTools
 {
     // Use cubature to do the 2D feynman parameter integral with 
     // brute force quadrature
-    complex feynman_triangle::evaluate(const triangle_args & ms)
+    complex feynman::evaluate(const args & args)
     {
         // Desination for the result and assosiated errors
         double val[2], err[2];
@@ -21,7 +21,7 @@ namespace triangleTools
         double max[2] = {1., 1.};
 
         // Pass args to integrand
-        _integrand.pass_args(ms);
+        _integrand.pass_args(args);
 
         // Integrate over x and y
         hcubature(2, wrapped_integrand, &_integrand, 2, min, max, _maxcalls, 0, 1e-4, ERROR_INDIVIDUAL, val, err);
@@ -34,7 +34,7 @@ namespace triangleTools
     };
 
     // Interface with cubature
-    int feynman_triangle::wrapped_integrand(unsigned ndim, const double *in, void *fdata, unsigned fdim, double *fval)
+    int feynman::wrapped_integrand(unsigned ndim, const double *in, void *fdata, unsigned fdim, double *fval)
     {
         integrand* feyn_integrand = (integrand*) fdata;
 
@@ -53,14 +53,14 @@ namespace triangleTools
     };
 
     // Combination of denominators 
-    complex feynman_triangle::integrand::D(double x1, double x2, double x3)
+    complex feynman::integrand::D(double x1, double x2, double x3)
     {
         return + x1   *_m1 + x2   *_m2 + x3   *_m3 
                - x2*x3*_M1 - x1*x3*_M2 - x1*x2*_M3;
     };
 
     // Filter integrands by _id
-    complex feynman_triangle::integrand::evaluate(double x1, double x2, double x3)
+    complex feynman::integrand::evaluate(double x1, double x2, double x3)
     {
         switch (_id)
         {

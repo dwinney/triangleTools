@@ -4,26 +4,27 @@
 // Email:        daniel.winney@gmail.com
 // ---------------------------------------------------------------------------
 
-#ifndef LOOPTOOLS_TRIANGLE_HPP
-#define LOOPTOOLS_TRIANGLE_HPP
+#ifndef LOOPTOOLS_HPP
+#define LOOPTOOLS_HPP
 
 #include "clooptools.h"
 #include <array>
-#include "triangle_args.hpp"
+#include "interface.hpp"
 #include "constants.hpp"
 #include "utilities.hpp"
 
 namespace triangleTools
 {
-    class looptools_triangle
+    class looptools
     {
         public: 
 
-        looptools_triangle(){};
+        looptools(){};
 
-        // Brute force feynman parameters integration
-        complex evaluate(const triangle_args & ms); 
-        inline complex operator()(const triangle_args & ms){ return evaluate(ms); };
+        // Structure is simple because we only need  
+        // to call the appropriate C0iC function
+        complex evaluate(const args & args); 
+        inline complex operator()(const args & args){ return evaluate(args); };
     };
 };
 

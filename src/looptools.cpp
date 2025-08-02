@@ -4,11 +4,11 @@
 // Email:        daniel.winney@gmail.com
 // ---------------------------------------------------------------------------
 
-#include "looptools_triangle.hpp"
+#include "looptools.hpp"
 
 namespace triangleTools
 {
-    complex looptools_triangle::evaluate(const triangle_args & args)
+    complex looptools::evaluate(const args & args)
     {
         complex result = 0;
         complex M1 = args._external[0], M2 = args._external[1], M3 = args._external[2];

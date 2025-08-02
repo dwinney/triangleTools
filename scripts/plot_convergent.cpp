@@ -1,7 +1,7 @@
 #include "constants.hpp"
 #include "utilities.hpp"
-#include "feynman_triangle.hpp"
-#include "looptools_triangle.hpp"
+#include "feynman.hpp"
+#include "looptools.hpp"
 #include "plotter.hpp"
 #include "plot.hpp"
 
@@ -15,12 +15,12 @@ void plot_convergent()
     double  m3pi2 = norm(1.4),     t  = -0.1;
     complex ieps  = I*1E-5;
 
-    triangle_args args(id::log_divergent);
+    args args(id::log_divergent);
     args._external = {mu2, 0.,  t  };
     args._internal = {mu2, mu2, sig};
 
-    feynman_triangle   fT;
-    looptools_triangle lT;
+    feynman   fT;
+    looptools lT;
 
     int N = 50;
     double min = 0, max = 2.5;

@@ -4,29 +4,29 @@
 // Email:        daniel.winney@gmail.com
 // ---------------------------------------------------------------------------
 
-#ifndef FEYNMAN_TRIANGLE_HPP
-#define FEYNMAN_TRIANGLE_HPP
+#ifndef FEYNMAN_HPP
+#define FEYNMAN_HPP
 
 #include <array>
-#include "triangle_args.hpp"
+#include "interface.hpp"
 #include "constants.hpp"
 #include "utilities.hpp"
 #include "cubature.h"
 
 namespace triangleTools
 {
-    class feynman_triangle
+    class feynman
     {
         public:
 
         // Default triangle, dont really need to specify anything
-        feynman_triangle(){};
+        feynman(){};
 
-        feynman_triangle(uint maxcalls) : _maxcalls(maxcalls) {};
+        feynman(uint maxcalls) : _maxcalls(maxcalls) {};
 
         // Brute force feynman parameters integration
-        complex evaluate(const triangle_args & ms); 
-        inline complex operator()(const triangle_args & ms){ return evaluate(ms); };
+        complex evaluate(const args & args); 
+        inline complex operator()(const args & args){ return evaluate(args); };
 
         private:
             
@@ -39,7 +39,7 @@ namespace triangleTools
         struct integrand
         {
             // Save the arguments originally passed through feynman_triangle::evaluate
-            void pass_args(triangle_args args)
+            void pass_args(args args)
             {
                 _id = args._id;
                 _M1 = args._external[0], _M2 = args._external[1], _M3 = args._external[2]; 
