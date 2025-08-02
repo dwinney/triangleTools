@@ -18,7 +18,9 @@ void Load()
     TString lib  = main_dir + "/lib/libTRIANGLETOOLS." + lib_ext;
 
     // Headers
-    TString core    = main_dir + "/src"; 
+    TString core  = main_dir + "/src"; 
+    TString plot  = main_dir + "/src/plotting"; 
+    TString cube  = main_dir + "/src/cubature"; 
 
     if (!gSystem->AccessPathName(lib.Data()))
     {
@@ -26,6 +28,8 @@ void Load()
         if (lib_loaded < 0) Fatal("Load()", "Library not loaded sucessfully!");
 
         gInterpreter->AddIncludePath( core.Data());
+        gInterpreter->AddIncludePath( plot.Data());
+        gInterpreter->AddIncludePath( cube.Data());
         gInterpreter->AddIncludePath( main_dir.Data());
     }
     else

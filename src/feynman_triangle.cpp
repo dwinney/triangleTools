@@ -11,7 +11,7 @@ namespace triangleTools
 {
     // Use cubature to do the 2D feynman parameter integral with 
     // brute force quadrature
-    complex feynman_triangle::evaluate(const args & ms)
+    complex feynman_triangle::evaluate(const triangle_args & ms)
     {
         // Desination for the result and assosiated errors
         double val[2], err[2];
@@ -49,7 +49,7 @@ namespace triangleTools
         fval[0] = real(result);
         fval[1] = imag(result);
 
-        return 1;
+        return 0;
     };
 
     // Combination of denominators 

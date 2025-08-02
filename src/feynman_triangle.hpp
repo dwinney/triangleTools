@@ -8,13 +8,13 @@
 #define FEYNMAN_TRIANGLE_HPP
 
 #include <array>
-#include "args.hpp"
+#include "triangle_args.hpp"
 #include "constants.hpp"
+#include "utilities.hpp"
 #include "cubature.h"
 
 namespace triangleTools
 {
-    // 
     class feynman_triangle
     {
         public:
@@ -23,8 +23,8 @@ namespace triangleTools
         feynman_triangle(){};
 
         // Brute force feynman parameters integration
-        complex evaluate(const args & ms); 
-        inline complex operator()(const args & ms){ return evaluate(ms); };
+        complex evaluate(const triangle_args & ms); 
+        inline complex operator()(const triangle_args & ms){ return evaluate(ms); };
 
         private:
             
@@ -35,7 +35,7 @@ namespace triangleTools
         struct integrand
         {
             // Save the arguments originally passed through feynman_triangle::evaluate
-            void pass_args(args args)
+            void pass_args(triangle_args args)
             {
                 _id = args._id;
                 _M1 = args._external[0], _M2 = args._external[1], _M3 = args._external[2]; 

@@ -54,7 +54,6 @@ dev/
 *.ps
 *.root
 *.dat
-*.txt
 
 # Testing scripts
 scripts/tests/
