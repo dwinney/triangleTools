@@ -15,7 +15,7 @@ void plot_convergent()
     double  m3pi2 = norm(1.4),     t  = -0.1;
     complex ieps  = I*1E-5;
 
-    triangle_args args(id::convergent);
+    triangle_args args(id::log_divergent);
     args._external = {mu2, 0.,  t  };
     args._internal = {mu2, mu2, sig};
 
@@ -45,7 +45,7 @@ void plot_convergent()
     plot p = plotter.new_plot();
     p.add_curve(x, fre, solid(jpacColor::Blue, "Real"));
     p.add_curve(x, fim, solid(jpacColor::Red,  "Imag"));
-    p.add_curve(x, lre, dashed(jpacColor::Green));
-    p.add_curve(x, lim, dashed(jpacColor::Orange));
+    p.add_curve(x, lre, dashed(jpacColor::Blue));
+    p.add_curve(x, lim, dashed(jpacColor::Red));
     p.save("plot.pdf");
 };

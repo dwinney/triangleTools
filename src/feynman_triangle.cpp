@@ -64,7 +64,8 @@ namespace triangleTools
     {
         switch (_id)
         {
-            case id::convergent: return 1./D(x1, x2, x3);
+            case id::convergent:    return 1./D(x1,x2,x3);
+            case id::log_divergent: return - log(D(x1,x2,x3));
             default: return NaN<double>();
         };
 

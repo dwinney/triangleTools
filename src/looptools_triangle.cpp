@@ -20,7 +20,12 @@ namespace triangleTools
         {
             case id::convergent: 
             {
-                result = - C0C(M1, M2, M3, m2, m3, m1);
+                result = - C0iC(cc0, M1, M2, M3, m2, m3, m1);
+                 break;
+            };
+            case id::log_divergent: 
+            {
+                result = 2*C0iC(cc00, M1, M2, M3, m2, m3, m1);
                  break;
             };
             default: { result = NaN<complex>(); break; };
