@@ -22,12 +22,16 @@ namespace triangleTools
         // Default triangle, dont really need to specify anything
         feynman_triangle(){};
 
+        feynman_triangle(uint maxcalls) : _maxcalls(maxcalls) {};
+
         // Brute force feynman parameters integration
         complex evaluate(const triangle_args & ms); 
         inline complex operator()(const triangle_args & ms){ return evaluate(ms); };
 
         private:
             
+        uint _maxcalls = 0;
+        
         // Interface with cubature
         static int wrapped_integrand(unsigned ndim, const double *in, void *fdata, unsigned fdim, double *fval);
         

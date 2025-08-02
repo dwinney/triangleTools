@@ -24,11 +24,11 @@ namespace triangleTools
         _integrand.pass_args(ms);
 
         // Integrate over x and y
-        hcubature(2, wrapped_integrand, &_integrand, 2, min, max, 1E7, 0, 1e-6, ERROR_INDIVIDUAL, val, err);
+        hcubature(2, wrapped_integrand, &_integrand, 2, min, max, _maxcalls, 0, 1e-4, ERROR_INDIVIDUAL, val, err);
 
         // Assemble the result as a complex double
         complex result(val[0], val[1]);
-        result /= pow(4.*PI, 2.); // Rest of left-over factors from covariant loop normalization
+        // result /= pow(4.*PI, 2.); // Rest of left-over factors from covariant loop normalization
 
         return result;
     };
