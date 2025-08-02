@@ -8,13 +8,13 @@
 
 namespace triangleTools
 {
-    complex dispersive::evaluate(const args & args)
+    complex dispersive::evaluate(const arguments & args)
     {
         using namespace boost::math::quadrature;
 
         // Save all the masses
-        _M1  = args._external[0], _M2 = args._external[1], _M3 = args._external[2];
-        _m1  = args._internal[0], _m2 = args._internal[1], _m3 = args._internal[2];
+        save_args(args);
+        if (is_zero(_s)) { return 0.; }
 
         // Integration is with respect to the _M3 variable
         // i.e. cut along the m1-m2 intermediate state
@@ -22,17 +22,26 @@ namespace triangleTools
         double high = std::numeric_limits<double>::infinity();
 
         // Subtraction for Cauchy trick
-        complex subtraction = rho(_M3) * discontinuity(_M3);
-        complex log_term    = - subtraction * log(1. - _M3/low);
+        complex subtraction = rho(_s)*discontinuity(_s);
+        complex log_term    = -subtraction*log(1 - _M3/low);
 
         // Remaining principal value integral
         auto integrand = [&](double x)
         {
-            complex num = rho(x) * discontinuity(x) - subtraction;
-            return num / x / (x - _M3);
+            complex num = rho(x)*discontinuity(x)*(_s/x) - subtraction;
+            return num/(x - _M3);
         };
         complex integral = gauss_kronrod<double, 61>::integrate(integrand, low, high, _depth, 1.E-9, NULL);
         
-        return (integral + log_term) / PI;
+        return (integral+log_term) / PI;
+    };
+
+    complex dispersive::discontinuity(complex s)
+    {
+        switch (_id)
+        {
+            case id::convergent: return Q0();
+            default: return NaN<complex>();
+        };
     };
 };

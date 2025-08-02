@@ -8,7 +8,7 @@
 
 namespace triangleTools
 {
-    complex looptools::evaluate(const args & args)
+    complex looptools::evaluate(const arguments & args)
     {
         complex result = 0;
         complex M1 = args._external[0], M2 = args._external[1], M3 = args._external[2];

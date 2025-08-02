@@ -1,12 +1,10 @@
 #include "constants.hpp"
 #include "utilities.hpp"
-#include "feynman.hpp"
-#include "looptools.hpp"
 #include "dispersive.hpp"
 #include "plotter.hpp"
 #include "plot.hpp"
 
-void plot_convergent()
+void disp()
 {
     using namespace triangleTools;
     using triangleTools::complex;
@@ -19,39 +17,28 @@ void plot_convergent()
     args._external = {M2,  mu2, 0};
     args._internal = {mu2, mu2, t};
 
-    feynman    fT(1E7);
-    looptools  lT;
     dispersive dT;
 
     int N = 50;
     double min = 0, max = 1.0;
     
-    complex fsub = fT(args), lsub = lT(args), dsub = dT(args);
     std:vector<double> x, lre, lim, fre, fim, dre, dim;
     for (int i = 0; i <= N; i++)
     {
         double xi = min + i*(max - min)/N;
-        args._external = {M2, mu2, xi + IEPS};
+        args._external = {M2, mu2, xi+IEPS};
 
-        complex lTxi = lT(args) - lsub;
-        complex fTxi = fT(args) - fsub;
-        complex dTxi = dT(args) - dsub;
-        
+        complex dTxi = dT(args);
+        print(xi, dTxi);        
         x.push_back(xi);
-        fre.push_back(real(fTxi)); lre.push_back(real(lTxi)); 
-        fim.push_back(imag(fTxi)); lim.push_back(imag(lTxi));
-        dim.push_back(imag(dTxi)); dim.push_back(imag(dTxi));
+        dre.push_back(real(dTxi)); dim.push_back(imag(dTxi));
     };
 
     plotter plotter;
     plot p = plotter.new_plot();
-    p.add_curve(x, lre, solid(jpacColor::Blue, "Real"));
-    p.add_curve(x, lim, solid(jpacColor::Red,  "Imag"));
-    p.add_curve(x, fre, dashed(jpacColor::Blue));
-    p.add_curve(x, fim, dashed(jpacColor::Red));
     p.add_curve(x, dre, dotted(jpacColor::Blue));
     p.add_curve(x, dim, dotted(jpacColor::Red));
     p.set_labels("#it{m}_{3#pi}^{2}  [GeV^{2}]", "#it{T}_{0}");
-    p.add_vertical({norm(0.780-M_PION), norm(0.780+M_PION)});
+    p.add_vertical({norm(2*M_PION), norm(0.780-M_PION), norm(0.780+M_PION)});
     p.save("t0.pdf");
 };

@@ -23,8 +23,8 @@ namespace triangleTools
 
         // Structure is simple because we only need  
         // to call the appropriate C0iC function
-        complex evaluate(const args & args); 
-        inline complex operator()(const args & args){ return evaluate(args); };
+        complex evaluate(const arguments & args); 
+        inline complex operator()(const arguments & args){ return evaluate(args); };
     };
 };
 

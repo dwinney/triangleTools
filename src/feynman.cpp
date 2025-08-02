@@ -11,7 +11,7 @@ namespace triangleTools
 {
     // Use cubature to do the 2D feynman parameter integral with 
     // brute force quadrature
-    complex feynman::evaluate(const args & args)
+    complex feynman::evaluate(const arguments & args)
     {
         // Desination for the result and assosiated errors
         double val[2], err[2];
@@ -21,7 +21,7 @@ namespace triangleTools
         double max[2] = {1., 1.};
 
         // Pass args to integrand
-        _integrand.pass_args(args);
+        _integrand.save_args(args);
 
         // Integrate over x and y
         hcubature(2, wrapped_integrand, &_integrand, 2, min, max, _maxcalls, 0, 1e-4, ERROR_INDIVIDUAL, val, err);
