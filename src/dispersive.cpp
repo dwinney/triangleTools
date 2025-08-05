@@ -14,33 +14,33 @@ namespace triangleTools
 
         // Save all the masses
         save_args(args);
-        if (is_zero(_s)) { return 0.; }
+        if (is_zero(_M3)) { return 0.; }
 
         // Integration is with respect to the _M3 variable
         // i.e. cut along the m1-m2 intermediate state
-        double low  = std::norm(sqrt(real(_m1)) + sqrt(real(_m2)));
+        double low  = std::norm(csqrt(_m1) + csqrt(_m2));
         double high = std::numeric_limits<double>::infinity();
 
         // Subtraction for Cauchy trick
-        complex subtraction = (_s >= low) ? rho(_s)*discontinuity(_s) : 0.;
-        complex log_term    = subtraction*log(1 - _M3/low);
+        complex subtraction = (real(_M3)>=low) ? rho(_M3)*discontinuity(_M3) : 0.;
+        complex log_term    = subtraction*log(1-_M3/low);
 
         // Remaining principal value integral
         auto integrand = [&](double x)
         {
             complex num = rho(x)*discontinuity(x) - subtraction;
-            return num*(_s/x)/(x - _M3);
+            return num*(_M3/x)/(x-_M3);
         };
         complex integral = gauss_kronrod<double, 61>::integrate(integrand, low, high, _depth, 1.E-9, NULL);
         
         return (integral-log_term);
     };
 
-    complex dispersive::discontinuity(complex s)
+    complex dispersive::discontinuity(complex x)
     {
         switch (_id)
         {
-            case id::convergent: return Q0();
+            case id::convergent: return Q0(x);
             default: return NaN<complex>();
         };
     };

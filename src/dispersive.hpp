@@ -32,7 +32,6 @@ namespace triangleTools
         
         // Masses squared so as to not need to pass around
         complex _M1, _M2, _M3, _m1, _m2, _m3;
-        double  _s, _ieps;
         id _id;
         
         // save masses 
@@ -40,8 +39,7 @@ namespace triangleTools
         {
             _M1  = args._external[0], _M2 = args._external[1], _M3 = args._external[2];
             _m1  = args._internal[0], _m2 = args._internal[1], _m3 = args._internal[2];
-            _s = real(_M3), _ieps = imag(_M3);
-            _id = args._id;
+            _id  = args._id;
         };
         
         // Integration options 
@@ -57,25 +55,26 @@ namespace triangleTools
         };
 
         // Two-body phase in terms of masses m2 and m3
-        inline complex rho(complex s){ return csqrt(kallen(s, _m1, _m2))/s; };
+        inline complex rho(complex x){ return csqrt(kallen(x, _m1, _m2))/x; };
         // Incoming momenta squared (M1 - M2 cm-momentum)
-        inline complex p(){ return csqrt(kallen(_s,_M1,_M2)+_ieps)/2./sqrt(_s); };
+        inline complex p(complex x){ return csqrt(kallen(x,_M1,_M2))/2./sqrt(x); };
         // Outgoing momenta squared (m1 - m2 cm-momentum)
-        inline complex q(){ return csqrt(kallen(_s,_m1,_m2)+_ieps)/2./sqrt(_s); };
+        inline complex q(complex x){ return csqrt(kallen(x,_m1,_m2))/2./sqrt(x); };
         // Product of momenta 
-        inline complex kacser(){ return 4.*p()*q(); };
+        inline complex kacser(complex x){ return 4.*p(x)*q(x); };
 
         // Bounds of momentum transfer 
-        inline complex t(double z)
+        inline complex t(complex x, double z)
         {
-            return _M1+_M2-(_M3+_M1-_M2)*(_M3+_m1-_m2)/2/_M3+z*kacser()/2.;
+            return _M1 + _m1 - (x+_M1-_M2)*(x+_m1-_m2)/x/2. + z*kacser(x)/2.;
         };
 
         //--------------------------------------------------------------
         // Legendres of the second kind (put in terms of t not z_t)
 
-        inline complex Q0(){ return (log(_m3 - t(-1)) - log(_m3 - t(+1)))/kacser(); };
-        inline complex Q1(){ return _m3*Q0() - 1; };
+        // TODO: THING NEED TO RUN WITH X DUMMY
+        inline complex Q0(complex x){ return log( (_m3 - t(x, -1))/(_m3 - t(x, +1)) ) / kacser(x); };
+        inline complex Q1(complex x){ return _m3*Q0(x) - 1; };
 
         //--------------------------------------------------------------
         // Finally the disc across the cut of our triangle
