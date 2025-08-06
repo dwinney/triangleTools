@@ -28,7 +28,9 @@ namespace triangleTools
         complex evaluate(const arguments & args); 
         inline complex operator()(const arguments & args){ return evaluate(args); };
         
-        // private:
+        complex sum_rule(const arguments & args); 
+
+        private:
         
         // Masses squared so as to not need to pass around
         complex _M1, _M2, _M3, _m1, _m2, _m3;

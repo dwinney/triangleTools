@@ -2,6 +2,7 @@
 file(GLOB_RECURSE SRC "*.cpp" "*.c")
 
 include_directories(.)
+include_directories(old)
 include_directories(cubature)
 include_directories(plotting)
 include_directories(${LOOPTOOLS_INC})
