@@ -6,7 +6,7 @@
 #include "plotter.hpp"
 #include "plot.hpp"
 
-void plot_convergent()
+void scalar_deck()
 {
     using namespace triangleTools;
     using triangleTools::complex;
@@ -20,39 +20,35 @@ void plot_convergent()
     args._external = {mu2, t,   0. };
     args._internal = {mu2, sig, mu2};
 
-    feynman    fT(3E7);
-    looptools  lT;
+    feynman    fT(1E8);
     dispersive dT(20);
 
-    int N = 50;
-    double min = EPS, max = 2.0;
+    int N = 10;
+    double min = EPS, max = 2.4;
     
-    complex fsub = fT(args), lsub = lT(args), dsub = dT(args);
-    std:vector<double> x, lre, lim, fre, fim, dre, dim;
+    complex fsub = fT(args), dsub = dT(args);
+    std:vector<double> x, fre, fim, dre, dim;
     for (int i = 0; i <= N; i++)
     {
         double xi = min + i*(max - min)/N;
-        args._external = {mu2, t, xi + ieps};
+        args._external = {mu2, t, xi+ieps};
 
-        complex lTxi = lT(args) - lsub;
-        // complex fTxi = fT(args) - fsub;
+        complex fTxi = fT(args) - fsub;
         complex dTxi = dT(args) - dsub;
 
+        print(xi, fTxi);
+        
         x.push_back(xi);
-        lre.push_back(real(lTxi)); lim.push_back(imag(lTxi));
-        // fre.push_back(real(fTxi)); fim.push_back(imag(fTxi));
+        fre.push_back(real(fTxi)); fim.push_back(imag(fTxi));
         dre.push_back(real(dTxi)); dim.push_back(imag(dTxi));
     };
 
     plotter plotter;
     plot p = plotter.new_plot();
-    p.add_curve(x, lre, solid(jpacColor::Blue, "Real"));
-    p.add_curve(x, lim, solid(jpacColor::Red,  "Imag"));
-    // p.add_curve(x, fre, dashed(jpacColor::Blue));
-    // p.add_curve(x, fim, dashed(jpacColor::Red));
-    p.add_curve(x, dre, dotted(jpacColor::Blue));
-    p.add_curve(x, dim, dotted(jpacColor::Red));
+    p.add_curve(x, fim, solid(jpacColor::DarkGrey));
+    p.add_curve(x, fre, solid(jpacColor::DarkGrey));
+    p.add_curve(x, dre, dashed(jpacColor::Blue));
+    p.add_curve(x, dim, dashed(jpacColor::Red));
     p.set_labels("#it{m}_{3#pi}^{2}  [GeV^{2}]", "#it{T}_{0}");
-    p.add_vertical({norm(sqrt(mu2)-sqrt(sig)), norm(sqrt(mu2)+sqrt(sig))});
     p.save("t0.pdf");
 };

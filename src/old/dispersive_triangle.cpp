@@ -62,7 +62,7 @@ std::complex<double> triangleTools::dispersive_triangle::s_dispersion(double low
     log_term *= rho(s) * projector.eval(s, t);
   }
 
-  return (result + log_term) / M_PI;
+  return (result + log_term);
 };
 
 std::complex<double> triangleTools::dispersive_triangle::sum_rule()
@@ -78,5 +78,5 @@ std::complex<double> triangleTools::dispersive_triangle::sum_rule()
   std::complex<double> result;
   result = boost::math::quadrature::gauss_kronrod<double, 61>::integrate(dsprime, 4.*M_PION*M_PION, std::numeric_limits<double>::infinity(), 5, 1.E-9, NULL);
   
-  return result / M_PI;
+  return result;
 };

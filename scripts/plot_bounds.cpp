@@ -9,26 +9,36 @@ void plot_bounds()
     using namespace triangleTools;
     using triangleTools::complex;
 
+    // // Masses
+    // double  mu2   = norm(M_PION);
+    // double  M2    = norm(0.780),  t  = norm(0.770);
+    // // complex ieps  = I*1E-5;
+
+    // arguments args(id::convergent);
+    // args._external = {M2,  mu2, 0};
+    // args._internal = {mu2, mu2, t};
+
     // Masses
-    double  mu2   = norm(M_PION);
-    double  M2    = norm(0.780),  t  = norm(0.770);
+    double  mu2   = norm(M_PION), sig = norm(0.770);
+    double  m3pi2 = norm(1.4),     t  = -0.1;
+    complex ieps  = I*1E-5;
 
     arguments args(id::convergent);
-    args._external = {M2,  mu2, 0};
-    args._internal = {mu2, mu2, t};
+    args._external = {mu2, t,   0. };
+    args._internal = {mu2, sig, mu2};
 
     dispersive dT;
         
     int N = 200;
-    double min = norm(2*M_PION), max = 1.1;
+    double min = 0.01, max = 1.1;
     std:vector<double> x, rtp, itp, rtm, itm;
     for (int i = 0; i <= N; i++)
     {
         double xi = min + i*(max - min)/N;
-        args._external = {M2, mu2, xi+IEPS};
+        args._external = {mu2, t, xi};
 
-        dT.save_masses(args);
-        complex tp = dT.t(+1), tm = dT.t(-1);
+        dT.save_args(args);
+        complex tp = dT.t(xi, +1), tm = dT.t(xi, -1);
         
         x.push_back(xi);
         rtp.push_back(real(tp)); itp.push_back(imag(tp)); 

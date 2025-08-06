@@ -31,7 +31,7 @@ namespace triangleTools
             complex num = rho(x)*discontinuity(x) - subtraction;
             return num*(_M3/x)/(x-_M3);
         };
-        complex integral = gauss_kronrod<double, 61>::integrate(integrand, low, high, _depth, 1.E-9, NULL);
+        complex integral = gauss_kronrod<double,61>::integrate(integrand, low, high, _depth, 1.E-9, NULL);
         
         return (integral-log_term);
     };

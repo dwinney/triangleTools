@@ -68,7 +68,7 @@ namespace triangleTools
         // Bounds of momentum transfer 
         inline complex t(complex x, double z)
         {
-            return _M1 + _m1 - (x+_M1-_M2)*(x+_m1-_m2)/x/2. + z*kacser(x)/2.;
+            return _M1+_m1-(x+_M1-_M2)*(x+_m1-_m2)/x/2.+z*kacser(x)/2.;
         };
 
         //--------------------------------------------------------------

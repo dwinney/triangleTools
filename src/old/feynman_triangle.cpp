@@ -26,7 +26,7 @@ std::complex<double> triangleTools::feynman_triangle::eval(double s, double t)
 
     // TODO: Set relative errors and max calls to actual good values
     // Integrate over x and y
-    hcubature(2, wrapped_integrand, &integrand, 2, min, max, 2E7, 0, 1e-3, ERROR_INDIVIDUAL, val, err);
+    hcubature(2, wrapped_integrand, &integrand, 2, min, max, 0, 0, 1e-3, ERROR_INDIVIDUAL, val, err);
 
     // Assemble the result as a complex double
     std::complex<double> result = val[0] + xi * val[1];
