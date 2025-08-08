@@ -12,7 +12,7 @@
 #include "plotter.hpp"
 #include "plot.hpp"
 
-void scalar_decay()
+void eta_decay()
 {
     using namespace triangleTools;
     using triangleTools::complex;
@@ -51,10 +51,11 @@ void scalar_decay()
 
     plotter plotter;
     plot p = plotter.new_plot();
+    p.add_header("#it{t} = #it{m}^{2}_{#rho}");
     p.add_curve(x, fim, solid(jpacColor::DarkGrey));
     p.add_curve(x, fre, solid(jpacColor::DarkGrey));
     p.add_curve(x, dre, dashed(jpacColor::Blue));
     p.add_curve(x, dim, dashed(jpacColor::Red));
-    p.set_labels("#it{m}_{3#pi}^{2}  [GeV^{2}]", "#it{T}_{0}");
+    p.set_labels("#it{s}  [GeV^{2}]", "#it{T}_{0}(#it{s}, #it{t})");
     p.save("T0_decay.pdf");
 };

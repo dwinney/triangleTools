@@ -1,4 +1,4 @@
-// Test of Deck-type loop in pi1 production with all particles as scalars
+// Test of Deck-type loop in pi1 production with realistic spins
 //
 // Author:       Daniel Winney (2025)
 // Email:        daniel.winney@gmail.com
@@ -12,7 +12,7 @@
 #include "plotter.hpp"
 #include "plot.hpp"
 
-void scalar_deck()
+void realistic_deck()
 {
     using namespace triangleTools;
     using triangleTools::complex;
@@ -22,7 +22,7 @@ void scalar_deck()
     double  m3pi2 = norm(1.4),     t  = -0.1;
     complex ieps  = I*1E-5;
 
-    arguments args(id::convergent);
+    arguments args(id::log_divergent);
     args._external = {mu2, t,   EPS};
     args._internal = {mu2, sig, mu2};
 
@@ -30,7 +30,7 @@ void scalar_deck()
     feynman    fT(1E8);
     dispersive dT(20);
 
-    int N = 100;
+    int N = 50;
     double min = EPS, max = 2.4;
     
     complex lsub = lT(args), fsub = fT(args), dsub = dT(args);
