@@ -54,13 +54,11 @@ namespace triangleTools
             case id::convergent:    return Q0(x);
             case id::log_divergent:
             {
-                complex a, b;
-                a = 2;
-                b = (x*x-x*(_M1+_M2+_m1+_m2)+(_m1-_m2)*(_M1-_M2))/x;
-
-                complex term_1 = (a*a*Q2(x)+2*a*b*Q1(x)+b*b*Q0(x))/norm(p(x));
-                complex term_2 = norm(q(x))*Q0(x);
-                return term_2 - term_1;
+                complex px = p(x), qx = q(x);
+                complex b = (x*x-x*(_M1+_M2+_m1+_m2)+(_m1-_m2)*(_M1-_M2))/x;
+                complex term_1 = qx*qx*Q0(x);
+                complex term_2 = (Q2(x)+b*Q1(x)+b*b/4*Q0(x))/4/px/px;
+                return (term_1-term_2);
             };
             default: return NaN<complex>();
         };

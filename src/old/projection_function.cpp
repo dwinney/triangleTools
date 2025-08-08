@@ -101,16 +101,18 @@ std::complex<double> triangleTools::projection_function::eval(double s, double t
             std::complex<double> term1, term2;
 
             // q^2 * z^2
-            term1  = 4.* Q(qns->l+2);
+            term1  = 0.;
+            term1 += 4.* Q(qns->l+2);
             term1 += (4. * s - 4. * mDec2 - 12. * M_PION*M_PION) * Q(qns->l+1);
             term1 += (s*s - 2.*mDec2*s + mDec2*mDec2 - 6.*M_PION*M_PION*s + 6.*M_PION*M_PION*mDec2 + 9.*M_PION*M_PION*M_PION*M_PION) * Q(qns->l);
             term1 *= 1. / psqr();
+            // term1 /= s;
 
             // q^2 * 1
             term2  = Q(qns->l);
             term2 *= qsqr();
 
-            result = term2 - term1;
+            result = (term2 - term1)/4;
             break;
         };
 

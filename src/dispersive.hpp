@@ -75,7 +75,11 @@ namespace triangleTools
 
         inline complex Q0(complex x){ return log((_m3-t(x,-1))/(_m3-t(x,+1)))/kacser(x); };
         inline complex Q1(complex x){ return _m3*Q0(x) - 1; };
-        inline complex Q2(complex x){ return _m3-_m3*Q0(x)-_m3-(norm(t(x,+1))-norm(t(x,-1)))/2/kacser(x); };
+        inline complex Q2(complex x)
+        { 
+            complex tp = t(x,+1), tm = t(x,-1);
+            return _m3*_m3*Q0(x)-_m3-(tp*tp-tm*tm)/2/kacser(x); 
+        };
 
         //--------------------------------------------------------------
         // Finally the disc across the cut of our triangle
