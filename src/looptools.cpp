@@ -12,7 +12,7 @@ namespace triangleTools
     {
         complex result = 0;
         complex M1 = args._external[0], M2 = args._external[1], M3 = args._external[2];
-        complex m1 = args._internal[0], m2 = args._internal[1], m3 = args._internal[2];
+        complex m1 = args._internal[1], m2 = args._internal[0], m3 = args._internal[2];
 
         ltini();
         setwarndigits(60);

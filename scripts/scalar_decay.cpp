@@ -1,3 +1,9 @@
+// Test of loop function which appears in eta -> 3pi S-wave decay
+//
+// Author:       Daniel Winney (2025)
+// Email:        daniel.winney@gmail.com
+// ---------------------------------------------------------------------------
+
 #include "constants.hpp"
 #include "utilities.hpp"
 #include "feynman.hpp"
@@ -6,7 +12,7 @@
 #include "plotter.hpp"
 #include "plot.hpp"
 
-void eta_decay()
+void scalar_decay()
 {
     using namespace triangleTools;
     using triangleTools::complex;
@@ -50,5 +56,5 @@ void eta_decay()
     p.add_curve(x, dre, dashed(jpacColor::Blue));
     p.add_curve(x, dim, dashed(jpacColor::Red));
     p.set_labels("#it{m}_{3#pi}^{2}  [GeV^{2}]", "#it{T}_{0}");
-    p.save("t0.pdf");
+    p.save("T0_decay.pdf");
 };

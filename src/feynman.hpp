@@ -43,7 +43,7 @@ namespace triangleTools
             {
                 _id = args._id;
                 _M1 = args._external[0], _M2 = args._external[1], _M3 = args._external[2]; 
-                _m1 = args._internal[0], _m2 = args._internal[1], _m3 = args._internal[2]; 
+                _m1 = args._internal[1], _m2 = args._internal[0], _m3 = args._internal[2]; 
             };
 
             // Masses SQUARED of all particles involved

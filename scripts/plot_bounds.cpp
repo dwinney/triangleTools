@@ -9,24 +9,17 @@ void plot_bounds()
     using namespace triangleTools;
     using triangleTools::complex;
 
-    // // Masses
-    // double  mu2   = norm(M_PION);
-    // double  M2    = norm(0.780),  t  = norm(0.770);
-    // // complex ieps  = I*1E-5;
-
-    // arguments args(id::convergent);
-    // args._external = {M2,  mu2, 0};
-    // args._internal = {mu2, mu2, t};
-
     // Masses
-    double  mu2   = norm(M_PION), sig = norm(0.770);
-    double  m3pi2 = norm(1.4),     t  = -0.1;
-    complex ieps  = I*1E-5;
+    double  mu2   = norm(M_PION);
+    double  M2    = norm(0.780);
+    double  tau   = mu2;
+    double  sig   = norm(0.770);
 
     arguments args(id::convergent);
-    args._external = {mu2, t,   0. };
-    args._internal = {mu2, sig, mu2};
+    args._external = {M2,  mu2, 0};
+    args._internal = {mu2, sig, tau};
 
+    double low = mu2
     dispersive dT;
         
     int N = 200;
@@ -35,7 +28,7 @@ void plot_bounds()
     for (int i = 0; i <= N; i++)
     {
         double xi = min + i*(max - min)/N;
-        args._external = {mu2, t, xi};
+        args._external = {M2, mu2, xi};
 
         dT.save_args(args);
         complex tp = dT.t(xi, +1), tm = dT.t(xi, -1);
@@ -53,5 +46,5 @@ void plot_bounds()
     p.add_curve(x, rtm, solid (jpacColor::Red, "#it{t}_{#minus}"));
     p.add_curve(x, itm, dashed(jpacColor::Red));
     p.set_labels("#it{s}  [GeV^{2}]", "#it{t}  [GeV^{2}]");
-    p.save("tpm.pdf");
+    p.save("t_bounds.pdf");
 };
