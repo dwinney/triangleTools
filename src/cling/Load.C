@@ -21,7 +21,6 @@ void Load()
     TString core  = main_dir + "/src"; 
     TString plot  = main_dir + "/src/plotting"; 
     TString cube  = main_dir + "/src/cubature"; 
-    TString old   = main_dir + "/src/old"; 
 
     if (!gSystem->AccessPathName(lib.Data()))
     {
@@ -31,7 +30,6 @@ void Load()
         gInterpreter->AddIncludePath( core.Data());
         gInterpreter->AddIncludePath( plot.Data());
         gInterpreter->AddIncludePath( cube.Data());
-        gInterpreter->AddIncludePath( old.Data());
         gInterpreter->AddIncludePath( main_dir.Data());
     }
     else
