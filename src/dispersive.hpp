@@ -28,14 +28,6 @@ namespace triangleTools
         complex evaluate(const arguments & args); 
         inline complex operator()(const arguments & args){ return evaluate(args); };
         
-        complex sum_rule(const arguments & args); 
-
-        private:
-        
-        // Masses squared so as to not need to pass around
-        complex _M1, _M2, _M3, _m1, _m2, _m3;
-        id _id;
-        
         // save masses 
         inline void save_args(const arguments & args)
         {
@@ -43,6 +35,19 @@ namespace triangleTools
             _m1  = args._internal[0], _m2 = args._internal[1], _m3 = args._internal[2];
             _id  = args._id;
         };
+
+        // Bounds of momentum transfer 
+        inline complex t(complex x, double z)
+        {
+            return _M1+_m1-(x+_M1-_M2)*(x+_m1-_m2)/x/2.+z*kacser(x)/2.;
+        };
+
+        private:
+        
+        // Masses squared so as to not need to pass around
+        complex _M1, _M2, _M3, _m1, _m2, _m3;
+        id _id;
+        
         
         // Integration options 
         double _depth = 0;
@@ -56,26 +61,19 @@ namespace triangleTools
             return x*x + y*y + z*z - 2*(x*y + y*z + x*z);
         };
 
-        // Two-body phase in terms of masses m2 and m3
-        inline complex rho(complex x){ return csqrt(kallen(x, _m1, _m2))/x; };
         // Incoming momenta squared (M1 - M2 cm-momentum)
-        inline complex p(complex x){ return csqrt(kallen(x,_M1,_M2))/2./sqrt(x); };
+        inline complex p  (complex x){ return csqrt(kallen(x,_M1,_M2))/2/csqrt(x); };
         // Outgoing momenta squared (m1 - m2 cm-momentum)
-        inline complex q(complex x){ return csqrt(kallen(x,_m1,_m2))/2./sqrt(x); };
+        inline complex q  (complex x){ return csqrt(kallen(x,_m1,_m2))/2/csqrt(x); };
+        // Two-body phase in terms of masses m1 and m2
+        inline complex rho(complex x){ return 2*q(x)/csqrt(x); };
         // Product of momenta 
-        inline complex kacser(complex x){ return 4.*p(x)*q(x); };
-
-        // Bounds of momentum transfer 
-        inline complex t(complex x, double z)
-        {
-            return _M1+_m1-(x+_M1-_M2)*(x+_m1-_m2)/x/2.+z*kacser(x)/2.;
-        };
+        inline complex kacser(complex x){ return 4*p(x)*q(x); };
 
         //--------------------------------------------------------------
         // Legendres of the second kind (put in terms of t not z_t)
 
-        // TODO: THING NEED TO RUN WITH X DUMMY
-        inline complex Q0(complex x){ return log( (_m3 - t(x, -1))/(_m3 - t(x, +1)) ) / kacser(x); };
+        inline complex Q0(complex x){ return log((_m3-t(x,-1))/(_m3-t(x,+1)))/kacser(x); };
         inline complex Q1(complex x){ return _m3*Q0(x) - 1; };
 
         //--------------------------------------------------------------

@@ -35,30 +35,7 @@ namespace triangleTools
         
         return (integral-log_term);
     };
-
-    complex dispersive::sum_rule(const arguments & args)
-    {
-        using namespace boost::math::quadrature;
-
-        // Save all the masses
-        save_args(args);
-
-        // Integration is with respect to the _M3 variable
-        // i.e. cut along the m1-m2 intermediate state
-        double low  = std::norm(csqrt(_m1) + csqrt(_m2));
-        double high = std::numeric_limits<double>::infinity();
-
-        // Remaining principal value integral
-        auto integrand = [&](double x)
-        {
-            complex num = rho(x)*discontinuity(x);
-            return num/std::norm(x);
-        };
-        complex integral = gauss_kronrod<double, 61>::integrate(integrand, low, high, _depth, 1.E-9, NULL);
-        
-        return (integral);
-    };
-
+    
     complex dispersive::discontinuity(complex x)
     {
         switch (_id)
