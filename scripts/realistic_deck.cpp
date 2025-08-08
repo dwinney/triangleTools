@@ -52,7 +52,7 @@ void realistic_deck()
 
     plotter plotter;
     plot p = plotter.new_plot();
-    p.set_legend(0.7, 0.45);
+    p.set_legend(0.7, 0.25);
     p.add_header("#minus #it{t} = 0.1, #sigma = #it{m}_{#rho}^{2}");
     p.add_curve(x, lim, solid(jpacColor::Green, "LoopTools"));
     p.add_curve(x, lre, solid(jpacColor::Green));
@@ -60,6 +60,6 @@ void realistic_deck()
     p.add_curve(x, fre, dotted(jpacColor::Red));
     p.add_curve(x, dre, dashed(jpacColor::Blue, "Dispersive"));
     p.add_curve(x, dim, dashed(jpacColor::Blue));
-    p.set_labels("#it{m}_{3#pi}^{2}  [GeV^{2}]", "#it{T}_{0}(#it{t}, #it{m}^{2}_{3#pi} #; #sigma)");
-    p.save("T0_deck.pdf");
+    p.set_labels("#it{m}_{3#pi}^{2}  [GeV^{2}]", "#it{T}(#it{t}, #it{m}^{2}_{3#pi} #; #sigma)");
+    p.save("T1_deck.pdf");
 };
