@@ -42,7 +42,13 @@ namespace triangleTools
             return _M1+_m1-(x+_M1-_M2)*(x+_m1-_m2)/x/2.+z*kacser(x)/2.;
         };
 
-        // private:
+        inline complex discontinuity(const arguments & args)
+        {
+            save_args(args);
+            return discontinuity(_M3); 
+        };
+
+        private:
         
         // Masses squared so as to not need to pass around
         complex _M1, _M2, _M3, _m1, _m2, _m3;
@@ -78,13 +84,12 @@ namespace triangleTools
         inline complex Q2(complex x)
         { 
             complex tp = t(x,+1), tm = t(x,-1);
-            return _m3*_m3*Q0(x)-_m3-(tp*tp-tm*tm)/2/kacser(x); 
+            return _m3*_m3*Q0(x)-_m3-t(x,0); 
         };
 
         //--------------------------------------------------------------
         // Finally the disc across the cut of our triangle
 
-        complex disperse(double low, double high);
         complex discontinuity(complex s);
     };
 };

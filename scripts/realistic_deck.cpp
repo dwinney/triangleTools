@@ -30,8 +30,8 @@ void realistic_deck()
     feynman    fT(1E8);
     dispersive dT(20);
 
-    int N = 50;
-    double min = EPS, max = 2.4;
+    int N = 150;
+    double min = -1, max = 6;
     
     complex lsub = lT(args), fsub = fT(args), dsub = dT(args);
     std:vector<double> x, lre, lim, fre, fim, dre, dim;
@@ -52,14 +52,15 @@ void realistic_deck()
 
     plotter plotter;
     plot p = plotter.new_plot();
-    p.set_legend(0.7, 0.25);
-    p.add_header("#minus #it{t} = 0.1, #sigma = #it{m}_{#rho}^{2}");
+    p.set_legend(0.65, 0.45);
+    p.add_header("#it{t} = #minus 0.1, #sigma = (0.77)^{2}");
     p.add_curve(x, lim, solid(jpacColor::Green, "LoopTools"));
     p.add_curve(x, lre, solid(jpacColor::Green));
     p.add_curve(x, fim, dotted(jpacColor::Red, "Feynman"));
     p.add_curve(x, fre, dotted(jpacColor::Red));
     p.add_curve(x, dre, dashed(jpacColor::Blue, "Dispersive"));
     p.add_curve(x, dim, dashed(jpacColor::Blue));
-    p.set_labels("#it{m}_{3#pi}^{2}  [GeV^{2}]", "#it{T}(#it{t}, #it{m}^{2}_{3#pi} #; #sigma)");
+    p.set_labels("#it{m}_{3#pi}^{2}  [GeV^{2}]", "#it{T}(#it{t}, #it{m}^{2}_{3#pi} #; #sigma) #minus #it{T}(#it{t}, 0 #; #sigma)");
+    p.add_vertical(norm(sqrt(sig) + sqrt(mu2)));
     p.save("T1_deck.pdf");
 };
