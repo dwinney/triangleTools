@@ -29,7 +29,7 @@ namespace triangleTools
         auto    integrand = [&](double x){ return (discontinuity(x)-subtraction)*(_M3/x)/(x-_M3); };
         complex integral  = gauss_kronrod<double,61>::integrate(integrand, low, high, _depth, 1.E-9, NULL);
         
-        return (integral-log_term);
+        return (integral-log_term)/PI;
     };
     
     complex dispersive::discontinuity(complex x)
@@ -43,7 +43,7 @@ namespace triangleTools
                 complex b = x-_M1-_M2-_m1-_m2+(_m1-_m2)*(_M1-_M2)/x;
                 complex term_1 = qx*qx*Q0(x);
                 complex term_2 = (Q2(x)+b*Q1(x)+b*b/4*Q0(x))/4/px/px;
-                return rho(x)*(term_1-term_2);
+                return PI*rho(x)*(term_1-term_2);
             };
             default: return NaN<complex>();
         };
