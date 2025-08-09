@@ -40,7 +40,7 @@ namespace triangleTools
             case id::log_divergent:
             {
                 complex px = p(x), qx = q(x);
-                complex b = (x*x-x*(_M1+_M2+_m1+_m2)+(_m1-_m2)*(_M1-_M2))/x;
+                complex b = x-_M1-_M2-_m1-_m2+(_m1-_m2)*(_M1-_M2)/x;
                 complex term_1 = qx*qx*Q0(x);
                 complex term_2 = (Q2(x)+b*Q1(x)+b*b/4*Q0(x))/4/px/px;
                 return rho(x)*(term_1-term_2);

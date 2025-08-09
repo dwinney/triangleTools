@@ -68,11 +68,11 @@ namespace triangleTools
         };
 
         // Incoming momenta squared (M1 - M2 cm-momentum)
-        inline complex p  (complex x){ return csqrt(kallen(x,_M1,_M2))/2/csqrt(x); };
+        inline complex p     (complex x){ return csqrt(kallen(x,_M1,_M2))/2/csqrt(x); };
         // Outgoing momenta squared (m1 - m2 cm-momentum)
-        inline complex q  (complex x){ return csqrt(kallen(x,_m1,_m2))/2/csqrt(x); };
+        inline complex q     (complex x){ return csqrt(kallen(x,_m1,_m2))/2/csqrt(x); };
         // Two-body phase in terms of masses m1 and m2
-        inline complex rho(complex x){ return 2*q(x)/csqrt(x); };
+        inline complex rho   (complex x){ return 2*q(x)/csqrt(x); };
         // Product of momenta 
         inline complex kacser(complex x){ return 4*p(x)*q(x); };
 
@@ -81,11 +81,7 @@ namespace triangleTools
 
         inline complex Q0(complex x){ return log((_m3-t(x,-1))/(_m3-t(x,+1)))/kacser(x); };
         inline complex Q1(complex x){ return _m3*Q0(x) - 1; };
-        inline complex Q2(complex x)
-        { 
-            complex tp = t(x,+1), tm = t(x,-1);
-            return _m3*_m3*Q0(x)-_m3-t(x,0); 
-        };
+        inline complex Q2(complex x){ return _m3*Q1(x)-t(x,0); }
 
         //--------------------------------------------------------------
         // Finally the disc across the cut of our triangle
