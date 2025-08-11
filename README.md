@@ -8,10 +8,9 @@ Setting masses for any triangle use the same interface:
 arguments args;
 args._external = {M1sq, M2sq, M3sq};
 args._internal = {m1sq, m2sq, m3sq}; 
-````
-where the indices 1,2,3 follow: 
-
+```
+where each mass squared is allowed to be complex (or negative) the indices 1,2,3 follow: 
 <p align="center">
   <img width="500" src="./doc/labels.png">
 </p>
-This way its easy to keep track where each particle is as each vertex contains one $M$ and two $m$'s each with all three indices. 
+This way its easy to keep track where each particle is as each vertex contains one M and two m's each with all three indices. 
