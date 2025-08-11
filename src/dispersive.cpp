@@ -8,31 +8,44 @@
 
 namespace triangleTools
 {
-    complex dispersive::evaluate(const args & args)
+    complex dispersive::evaluate(const arguments & args)
     {
-        using namespace boost::math::quadrature;
+        using boost::math::quadrature::gauss_kronrod;
 
         // Save all the masses
-        _M1  = args._external[0], _M2 = args._external[1], _M3 = args._external[2];
-        _m1  = args._internal[0], _m2 = args._internal[1], _m3 = args._internal[2];
+        save_args(args);
+        if (is_zero(_M3)) { return 0.; }
 
         // Integration is with respect to the _M3 variable
         // i.e. cut along the m1-m2 intermediate state
-        double low  = std::norm(sqrt(real(_m2)) + sqrt(real(_m3)));
+        double low  = std::norm(csqrt(_m1) + csqrt(_m2));
         double high = std::numeric_limits<double>::infinity();
 
         // Subtraction for Cauchy trick
-        complex subtraction = rho(_M3) * discontinuity(_M3);
-        complex log_term    = - subtraction * log(1. - _M3/low);
+        complex subtraction = (real(_M3)>=low) ? discontinuity(_M3) : 0.;
+        complex log_term    = subtraction*log(1-_M3/low);
 
         // Remaining principal value integral
-        auto integrand = [&](double x)
-        {
-            complex num = rho(x) * discontinuity(x) - subtraction;
-            return num / x / (x - _M3);
-        };
-        complex integral = gauss_kronrod<double, 61>::integrate(integrand, low, high, _depth, 1.E-9, NULL);
+        auto    integrand = [&](double x){ return (discontinuity(x)-subtraction)*(_M3/x)/(x-_M3); };
+        complex integral  = gauss_kronrod<double,61>::integrate(integrand, low, high, _depth, 1.E-9, NULL);
         
-        return (integral + log_term) / PI;
+        return (integral-log_term)/PI;
+    };
+    
+    complex dispersive::discontinuity(complex x)
+    {
+        switch (_id)
+        {
+            case id::convergent: return rho(x)*Q0(x);
+            case id::log_divergent:
+            {
+                complex px = p(x), qx = q(x);
+                complex b = x-_M1-_M2-_m1-_m2+(_m1-_m2)*(_M1-_M2)/x;
+                complex term_1 = qx*qx*Q0(x);
+                complex term_2 = (Q2(x)+b*Q1(x)+b*b/4*Q0(x))/4/px/px;
+                return PI*rho(x)*(term_1-term_2);
+            };
+            default: return NaN<complex>();
+        };
     };
 };
