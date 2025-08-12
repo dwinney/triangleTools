@@ -70,7 +70,7 @@ namespace triangleTools
         // Incoming momenta squared (M1 - M2 cm-momentum)
         inline complex p     (complex x){ return csqrt(kallen(x,_M1,_M2))/2/csqrt(x); };
         // Outgoing momenta squared (m1 - m2 cm-momentum)
-        inline complex q     (complex x){ return csqrt(kallen(x,_m1,_m2))/2/csqrt(x); };
+        inline complex q     (complex x){ return (real(_m2) >= real(_M3)-real(_m1)) ? -csqrt(kallen(x,_m1,_m2))/2/csqrt(x) : csqrt(kallen(x,_m1,_m2))/2/csqrt(x); };
         // Two-body phase in terms of masses m1 and m2
         inline complex rho   (complex x){ return 2*q(x)/csqrt(x); };
         // Product of momenta 
@@ -79,7 +79,7 @@ namespace triangleTools
         //--------------------------------------------------------------
         // Legendres of the second kind (put in terms of t not z_t)
 
-        inline complex Q0(complex x){ return log((_m3-t(x,-1))/(_m3-t(x,+1)))/kacser(x); };
+        inline complex Q0(complex x){ return (log(_m3-t(x,-1))-log(_m3-t(x,+1)))/kacser(x); };
         inline complex Q1(complex x){ return _m3*Q0(x) - 1; };
         inline complex Q2(complex x){ return _m3*Q1(x)-t(x,0); }
 
