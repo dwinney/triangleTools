@@ -39,7 +39,7 @@ void continued_deck()
         args._internal = {mu2, xi, mu2};
 
         complex fTxi = fT(args);
-        complex dTxi = dT.discontinuity(args);
+        complex dTxi = conj(dT.discontinuity(args));
 
         x.push_back(xi);
         fim.push_back(imag(fTxi));
@@ -53,8 +53,8 @@ void continued_deck()
     p.add_header("#it{t} = #minus 0.1, #it{m}_{3#pi}^{2} = (1.4)^{2}");
     p.add_curve(x, dre, solid(jpacColor::Blue, "Real"));
     p.add_curve(x, dim, solid(jpacColor::Red, "Imaginary"));
-    p.add_curve(x, fim, dashed(jpacColor::DarkGrey, "Im #it{T}(#it{t}, #it{m}^{2}_{3#pi} ; #sigma)"));
-    p.set_labels("#sigma  [GeV^{2}]", "#Delta(#it{t}, #it{m}_{3#pi}^{2} #; #sigma)");
+    p.add_curve(x, fim, dashed(jpacColor::DarkGrey, "Im #it{T}(#it{t}, #it{m}^{2}_{3#pi} + #it{i}#epsilon ; #sigma)"));
+    p.set_labels("#sigma  [GeV^{2}]", "#Delta(#it{t}, #it{m}_{3#pi}^{2} #; #sigma + #it{i}#epsilon)");
     p.shade_region({4*mu2, norm(sqrt(m3pi2)-sqrt(mu2))});
     p.add_vertical(norm(sqrt(m3pi2)+sqrt(mu2)));
     p.save("T1_deck.pdf");
