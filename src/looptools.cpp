@@ -25,7 +25,7 @@ namespace triangleTools
             };
             case id::log_divergent: 
             {
-                result = 2*C0iC(cc00, M1, M2, M3, m2, m3, m1);
+                result = 4/PI*C0iC(cc00, M1, M2, M3, m2, m3, m1);
                  break;
             };
             default: { result = NaN<complex>(); break; };

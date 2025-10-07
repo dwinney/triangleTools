@@ -43,7 +43,7 @@ namespace triangleTools
                 complex b = x-_M1-_M2-_m1-_m2+(_m1-_m2)*(_M1-_M2)/x;
                 complex term_1 = qx*qx*Q0(x);
                 complex term_2 = (Q2(x)+b*Q1(x)+b*b/4*Q0(x))/4/px/px;
-                return PI*rho(x)*(term_1-term_2);
+                return 2*rho(x)*(term_1-term_2);
             };
             default: return NaN<complex>();
         };

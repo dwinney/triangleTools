@@ -29,7 +29,7 @@ namespace triangleTools
         // Assemble the result as a complex double
         complex result(val[0], val[1]);
 
-        return result;
+        return (2/PI)*result;
     };
 
     // Interface with cubature
